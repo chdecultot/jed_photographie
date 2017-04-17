@@ -1,0 +1,16 @@
+extends ../layouts/default 
+
+block css
+  link(href="/styles/flexbin.css" type="text/css" rel="stylesheet" media="all")
+
+block content
+    
+    .flexbin
+      each image, i in gallery.images
+       a(href="/uploads/images/"+ image.image.filename title="" data-lightbox-gallery="#{gallery.title}" data-lightbox-hidpi="/uploads/images/"+ image.image.filename) 
+        img(src="/uploads/images/"+ image.image.filename) 
+
+block js
+   script(type="text/javascript").
+      $("#navbar-collapse").remove()
+ 

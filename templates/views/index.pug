@@ -1,0 +1,111 @@
+extends ../layouts/default
+
+block content
+    .header.carousel.slide.zoom.carousel-fade(id="banner", data-ride="carousel")
+       .carousel-inner(role="listbox")
+        if homeImages.length == 3 
+         .item.active
+           img(src="/uploads/images/"+ homeImages[0].image.filename, alt=homeImages[0].name)
+         .item
+           img(src="/uploads/images/"+ homeImages[1].image.filename, alt=homeImages[1].name)
+         .item
+           img(src="/uploads/images/"+ homeImages[2].image.filename, alt=homeImages[2].name)
+        else if homeImages.length == 2
+         .item.active
+           img(src="/uploads/images/"+ homeImages[0].image.filename, alt=homeImages[0].name)
+         .item
+           img(src="/uploads/images/"+ homeImages[1].image.filename, alt=homeImages[1].name)
+        else if homeImages.length == 1
+         .item.active
+           img(src="/uploads/images/"+ homeImages[0].image.filename, alt=homeImages[0].name)
+        else
+
+           
+        a.left.carousel-control(href="#banner", role="button", data-slide="prev")
+         span.glyphicon.glyphicon-menu-left(aria-hidden="true")
+         span.sr-only Previous
+
+        a.right.carousel-control(href="#banner", role="button", data-slide="next")
+         span.glyphicon.glyphicon-menu-right(aria-hidden="true")
+         span.sr-only Next
+
+    //Vision section
+    section#vision
+     div.vision
+      div.vision-border.centered.wow.bounceIn
+       h4 Portfolio
+       
+    //Portfolio section 
+    section.grid#portfolio 
+            if galleries.length
+                    each gallery in galleries
+                                  
+                                      figure.effect-portfolio.wow.fadeInDown(data-wow-duration="1500ms")
+                                             img(src="/uploads/images/"+ gallery.heroImage.image.filename)
+
+                                             each image in gallery.images
+                                              figcaption
+                                               h2 #{gallery.title}
+                                               p #{gallery.description}
+                                               a(href="/" + gallery.key)
+                                  
+            else
+                    h4.text-muted There are no image galleries yet.
+    
+    //About section 
+    section#about
+       div.about-content.wow.fadeIn(data-wow-duration="1500ms")
+         div.container
+           h4 Jean-Eudes Decultot
+           div.about-text
+            p.large Nantes, France
+            p.small www.jedphotographie.com
+            br
+            p.atext
+             | La photographie me permet de capter une émotion, une sensibilité que je souhaite partager.
+             | Loisir de subjectivité, sa finalité est d'évoquer une immédiateté inspirante.
+             br
+             | Passionné par l'environnement marin, gourmand d'architecture, avide de découvertes... ce portfolio ne cache pas ses ardeurs.
+    //Footer section
+    section#footer
+     .container
+       a(href="#"): img(src="images/logo-50x50.png", alt="Logo JED")
+       
+    //Contact section
+    section#contact
+     .container
+      if enquirySubmitted
+       .text-center
+         h2 Message bien envoyé!
+      else 
+       .row 
+        form(method='post')
+         .col-md-6
+            input(type='hidden', name='action', value='contact')
+            .form-group(class=validationErrors.name ? 'has-error' : null)
+              input.form-control(type="text" name='name.full' value=formData['name.full'] autocomplete="off" placeholder="Votre Nom *" id="name" required)
+              
+            .form-group(class=validationErrors.email ? 'has-error' : null)
+              input.form-control(type="email" name='email' value=formData.email autocomplete="off" placeholder="Votre Email *" id="email" required)
+              
+            .form-group
+              input.form-control(type="tel" name='phone' value=formData.phone autocomplete="off" placeholder="Votre Numéro de Téléphone" id="phone")              
+         .col-md-6
+            .form-group(class=validationErrors.message ? 'has-error' : null)
+              textarea(name='message' autocomplete="off" placeholder="Écrivez-moi *" id="message" required).form-control= formData.message
+              
+         .clearfix
+         .col-lg-12.text-center
+             #success
+             button.btn.btn-send(type="submit") Envoyer
+         
+    
+    //Socials section
+    section#socials
+     .container.wow.bounceIn(data-wow-delay="0.4s")
+      p >> 
+        span.follow Suivez-Moi
+        <<
+      ol.social
+       li: a(href="https://twitter.com/JEDecultot"): i.fa.fa-twitter.fa-2x
+       li: a(href="https://www.instagram.com/jed_dclt/"): i.fa.fa-instagram.fa-2x
